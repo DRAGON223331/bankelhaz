@@ -399,6 +399,64 @@ select,input{background:#fbf4de;color:var(--ink);border:1px solid #b79a55;border
 .ol-player.off{opacity:.45}
 .online #saveBtn,.online #newBtn,.online #clearChatBtn{display:none}
 .turn-wait{font-size:13px;color:#5a4318;font-weight:700;text-align:center}
+
+/* ===== v4: big board on PC, fluid on phones ===== */
+:root{--bs:max(290px,min(calc(100vw - 16px),calc(100dvh - 235px)))}
+.board-wrap{background:linear-gradient(145deg,#2d2d2d,#0d0d0d);padding:clamp(6px,1.2vw,16px);border-radius:14px;box-shadow:0 30px 60px #000c,0 0 0 2px #3a3a3a,inset 0 2px 0 #666,inset 0 0 0 1px #555}
+.board-stage{border-radius:3px;box-shadow:inset 0 0 0 1px #0008,0 0 0 1px #000}
+.board-grid{gap:0}
+.board-tile{cursor:pointer;transition:filter .15s}.board-tile:hover{filter:brightness(1.08) saturate(1.1);z-index:3}
+.tile-band{overflow:hidden}
+.tile-band b{font-size:clamp(5.5px,calc(var(--bs)*.0135),15px);line-height:1.05}
+.tile-type-property .tile-price{font-size:clamp(6px,calc(var(--bs)*.0165),17px)}
+.tile-build{font-size:calc(var(--bs)*.014);bottom:3px;right:3px}
+.tile-corner .tile-symbol{font-size:calc(var(--bs)*.045)!important}
+.center-bank-label{display:block;top:3%;color:#222;font:700 calc(var(--bs)*.014) var(--f-display);letter-spacing:.25em;text-align:center}
+.center-title{font-size:calc(var(--bs)*.105)}
+.center-dice-panel{width:68%;max-width:none;gap:calc(var(--bs)*.008)}
+.center-turn-player{font-size:max(11px,calc(var(--bs)*.02))}
+.center-turn-badge{font-size:max(9px,calc(var(--bs)*.013));padding:2px calc(var(--bs)*.012)}
+.center-turn-sub{font-size:max(9px,calc(var(--bs)*.0145))}
+.center-dice-total{font-size:max(10px,calc(var(--bs)*.017))}
+.board-die{width:max(40px,calc(var(--bs)*.085));height:max(40px,calc(var(--bs)*.085));font-size:max(32px,calc(var(--bs)*.07));border-radius:calc(var(--bs)*.016)}
+.center-roll-btn{font-size:max(12px,calc(var(--bs)*.022));padding:calc(var(--bs)*.011) calc(var(--bs)*.04)}
+.center-actions button{font-size:max(11px,calc(var(--bs)*.018))}
+.topbar{flex-wrap:wrap}
+@media(max-width:600px){.brand p{display:none}.topbar{padding:6px 8px;margin-bottom:8px}.top-actions{flex-wrap:wrap;gap:5px}.top-actions .soft-btn{padding:7px 8px;font-size:11px}.board-wrap{padding:5px;border-radius:10px}.chat-messages{height:200px}}
+/* PC / tablet landscape: board fills the screen height, panels on both sides */
+@media(min-width:900px) and (min-aspect-ratio:11/10){
+ :root{--side:clamp(210px,19vw,330px);--bs:max(480px,min(calc(100dvh - 92px),calc(100vw - var(--side)*2 - 56px)))}
+ .app{max-width:none;padding:10px 18px 12px}.topbar{margin-bottom:10px;padding:6px 14px}
+ .game-layout{display:grid;grid-template-columns:var(--side) var(--bs) var(--side);grid-template-rows:auto 1fr;justify-content:center;gap:12px 18px;align-items:start}
+ .board-card{display:contents}
+ .board-wrap{grid-column:2;grid-row:1/3}
+ .players-strip{grid-column:1;grid-row:1;width:auto;padding:0}
+ .players-strip .players-list{flex-direction:column;flex-wrap:nowrap;overflow:visible}
+ .players-strip .player-row{flex:none;max-width:none;width:100%}
+ .money-table{position:static;grid-column:1;grid-row:2;margin:0;padding:10px;border-width:2px;border-radius:16px;box-shadow:var(--shadow)}
+ .money-table-heading{position:static;margin-bottom:8px}
+ .wallet-card.current{flex-direction:column;align-items:stretch;gap:8px;max-width:none}
+ .wallet-head{flex-direction:row;justify-content:space-between;min-width:0}.wallet-player{flex-direction:row;gap:8px}
+ .note-row{flex-wrap:wrap;overflow:auto;max-height:34vh}
+ .chat-panel{grid-column:3;grid-row:1/3;margin:0;height:calc(var(--bs) + 28px);display:flex;flex-direction:column}
+ .chat-messages{flex:1;height:auto}
+}
+/* phone in landscape: board on one side, panels on the other */
+@media(orientation:landscape) and (max-height:560px){
+ :root{--bs:max(240px,calc(100dvh - 76px))}
+ .app{padding:6px 10px 10px}.topbar{margin-bottom:6px;padding:4px 8px}.brand p{display:none}.brand-mark{width:34px;height:34px}
+ .game-layout{display:grid;grid-template-columns:var(--bs) minmax(0,1fr);gap:10px;align-items:start;justify-content:center}
+ .board-card{display:contents}
+ .board-wrap{grid-column:1;grid-row:1/3}
+ .players-strip{grid-column:2;grid-row:1;width:auto;padding:0}
+ .players-strip .players-list{flex-wrap:wrap}.players-strip .player-row{flex:1 1 120px;max-width:none;width:auto}
+ .money-table{position:static;grid-column:2;grid-row:2;margin:0;padding:8px;border-width:2px;border-radius:14px}
+ .money-table-heading{position:static;margin-bottom:6px}
+ .wallet-card.current{flex-direction:column;align-items:stretch;gap:6px;max-width:none}
+ .wallet-head{flex-direction:row;justify-content:space-between}.wallet-player{flex-direction:row;gap:8px}
+ .note-row{flex-wrap:wrap;max-height:30vh;overflow:auto}
+ .chat-panel{grid-column:1/-1;margin:0}
+}
 </style>
 </head>
 <body>
@@ -969,6 +1027,19 @@ olEl('olLeave').addEventListener('click',()=>{olLeaving=true;try{sessionStorage.
 olEl('olServerRow').classList.toggle('hidden',location.protocol.startsWith('http'));
 (function(){const q=new URLSearchParams(location.search).get('room');if(q){olEl('onlinePanel').classList.remove('hidden');olEl('olCode').value=q.toUpperCase();}
  try{const s=JSON.parse(sessionStorage.getItem(OL_KEY)||'null');if(s&&s.code){roomCode=s.code;myToken=s.token;if(s.url)olEl('olServer').value=s.url;olEl('onlinePanel').classList.remove('hidden');olConnect(()=>olSend({t:'rejoin',code:s.code,token:s.token}));}}catch(e){}})();
+
+/* tap a tile for its details (helps on phones where text is small) */
+document.getElementById('boardGrid').addEventListener('click',e=>{
+ const t=e.target.closest('[data-space]');if(!t||!game)return;
+ const i=+t.dataset.space,s=spaces[i],o=ownerOf(i);let b='';
+ if(s.price)b+=`السعر: ${s.price} جنيه<br>`;
+ if(Array.isArray(s.rent))b+=`الإيجار الأساسي: ${s.rent[0]} جنيه<br>`;else if(s.rent)b+=`الإيجار: ${s.rent} جنيه<br>`;
+ if(s.build)b+=`تكلفة التطوير: ${s.build} جنيه<br>`;
+ if(s.type==='tax')b+=`الضريبة: ${s.amount} جنيه<br>`;
+ if(s.price)b+=o===null?'المالك: لا أحد (متاح للشراء)':`المالك: ${escapeHtml(game.players[o].name)}${game.mortgages[i]?' (مرهون)':''}`;
+ if(!b)b=({start:'مرّ من هنا واستلم 250 جنيه.',chance:'اسحب كرت حظك.',chest:'اسحب كرت المحكمة.',jail:'سجن أو زيارة فقط.',free:'استراحة مجانية.',gotojail:'اذهب إلى السجن مباشرة.'})[s.type]||'';
+ showModal(s.name,b);
+});
 
 </script>
 </body></html>
